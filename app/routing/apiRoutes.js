@@ -1,4 +1,4 @@
-let friendList = require('../data/friend.js');
+let friendList = require('../data/friends.js');
 
 module.exports = function(app){
   app.get('/api/friends', function(req,res){
@@ -14,10 +14,9 @@ module.exports = function(app){
 
     for(var i=0; i<friendList.length; i++){
       var scoresDiff = 0;
-      for(var j=0; j<newFriendScores.length; j++){
+      for(var j=0; j<newFriendScores.length; j++) {
         scoresDiff += (Math.abs(parseInt(friendList[i].scores[j]) - parseInt(newFriendScores[j])));
       }
-
       scoresArray.push(scoresDiff);
     }
 
