@@ -1,5 +1,5 @@
 //Dependencies
-var path = require('path');
+let path = require('path');
 
 //ROUTING
 

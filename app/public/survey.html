@@ -6,8 +6,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Survey</title>
@@ -160,122 +163,40 @@
       </footer>
     </div>
   
-
-    <div id="modal1" class="modal">
-            <div class="modal-content">
-              <h4>Meet Your New BFF</h4>
-              <h5 id="matchName"></h5>
-              <img id="matchPic" src="" alt="No Image" width = 250px>
-            </div>
-          <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Done</a>
-          </div>
-        </div>
-    <!-- Modal
     <div id="results-modal" class="modal fade" role="dialog">
       <div class="modal-dialog">
   
         <!-- Modal content-->
-        <!-- <div class="modal-content"> -->
-          <!-- <div class="modal-header">
+        <div class="modal-content">
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>
             <h2 class="modal-title"><strong>Best Match</strong></h2>
           </div>
           <div class="modal-body">
             <h2 id="match-name"></h2>
-            <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+            <img id="match-img" src="" alt="">
           </div>
-          <footer class="footer">
-            <div class="container">
-             Brought to you by Connor Dougherty and MantisLanguage
-            </div>
-          </footer>
-        </div> -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+  
       </div>
     </div>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $("#submitBtn").on("click", function() {
-                //form validation
-                function validateForm() {
-                    var isValid = true;
-                    $('.validate').each(function() {
-                        if ($(this).val() === ''){
-                            isValid = false;
-                        }
-                    });
-                    $('.browser-default').each(function() {
-                        if ($(this).val() === ""){
-                            isValid = false;
-                        }
-                    });
-                    return isValid;
-                }
-                //if everything is filled
-                if (validateForm() == true) {
-                    //creates a new friend from the values submitted
-                    var newFriend = {
-                        name: $('#name').val().trim(),
-                        profilePic: $('#photo').val().trim(),
-                        scores: [
-                            $('#s1').val(),
-                            $('#s2').val(),
-                            $('#s3').val(),
-                            $('#s4').val(),
-                            $('#s5').val(),
-                            $('#s6').val(),
-                            $('#s7').val(),
-                            $('#s8').val(),
-                            $('#s9').val(),
-                            $('#s10').val(),
-                        ]
-                    };
-                    //Grabs current URL of website
-                    var currentURL = window.location.origin;
-                    //AJAX posts the data to friends API.
-                    $.post(currentURL + "/api/friends", newFriend, function(data) {
-                        //Grab the result from the AJAX post so that the best match's name and photo are displayed.
-                        $("#matchName").text(data.name);
-                        $("#matchPic").attr("src", data.profilePic);
-                    });
-                    // Show the modal with the best match
-                        $('.modal').modal();
-                    //clear form after submission
-                    $('#name').val("");
-                    $('#photo').val("");
-                    $('#s1').val("");
-                    $('#s2').val("");
-                    $('#s3').val("");
-                    $('#s4').val("");
-                    $('#s5').val("");
-                    $('#s6').val("");
-                    $('#s7').val("");
-                    $('#s8').val("");
-                    $('#s9').val("");
-                    $('#s10').val("");
-                } else {
-                    alert("Please fill out ALL fields before submitting survey!")
-                }
-                // return false;
-            });
-        });
-        </script>
-        
-  
-    <!-- <script type="text/javascript">
       // Chosen CSS
       var config = {
-        ".form-control": {},
-        ".form-control-deselect": {
+        ".chosen-select": {},
+        ".chosen-select-deselect": {
           allow_single_deselect: true
         },
-        ".form-control-no-single": {
+        ".chosen-select-no-single": {
           disable_search_threshold: 10
         },
-        ".form-control-no-results": {
+        ".chosen-select-no-results": {
           no_results_text: "Oops, nothing found!"
         },
-        ".form-control-width": {
+        ".chosen-select-width": {
           width: "95%"
         }
       };
@@ -285,9 +206,9 @@
       }
   
       // Capture the form inputs
-      $("#submit").on("click", function(event) {
+      $("#submitBtn").on("click", function(event) {
         event.preventDefault();
-  
+  console.log("test")
         // Form validation
         function validateForm() {
           var isValid = true;
@@ -297,7 +218,7 @@
             }
           });
   
-          $(".form-control").each(function() {
+          $(".chosen-select").each(function() {
   
             if ($(this).val() === "") {
               isValid = false;
@@ -324,27 +245,34 @@
               $("#s9").val(),
               $("#s10").val()
             ]
-          }; -->
+          };
   
-        <!-- //   // AJAX post the data to the friends API.
-        //   $.post("/api/friends", userData, function(data) {
+          // AJAX post the data to the friends API.
+          $.post("/api/friends", userData, function(data) {
   
-        //     // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-        //     $("#match-name").text(data.name);
-        //     $("#match-img").attr("src", data.photo);
+            // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+            $("#match-name").text(data.name);
+            $("#match-img").attr("src", data.photo);
   
-        //     // Show the modal with the best match
-        //     $("#results-modal").modal("toggle");
+            // Show the modal with the best match
+            $("#results-modal").modal("toggle");
+            $(".close").on("click", function(event) {
+
+              $('#results-modal').modal('hide')
+
+            });
+       
+            
   
-        //   });
+          });
         } else {
           alert("Please fill out all fields before submitting!");
         }
-      }); -->
-    <!-- </script> -->
-  
-  
-  
+      });
+    </script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   
   </body>
   </html>

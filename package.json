@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/MantisLanguage/Friend-Finder#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "chosen": "0.0.2",
     "express": "^4.17.1",
     "path": "^0.12.7"
   }
